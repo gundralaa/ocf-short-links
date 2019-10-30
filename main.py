@@ -14,7 +14,7 @@ app = Flask(__name__)
 def render_page():
     return render_template('page.html', success=None)
 
-@app.route('/addUrl', methods=['POST'])
+@app.route('/', methods=['POST'])
 def add_url():
     original_url = request.form['urlInput']
     new_name = request.form['nameInput']
@@ -29,6 +29,6 @@ def add_url():
         try:
             add_shorturl(ctx, new_name, original_url)
         except:
-            return render_template('page.html', success='Already exists')
+            return render_template('page.html', success='Error')
         else:
             return render_template('page.html', success='Added')
