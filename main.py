@@ -19,7 +19,8 @@ def add_url():
     original_url = request.form['urlInput']
     new_name = request.form['nameInput']
     config = configparser.ConfigParser()
-    config.read('pass.ini')
+    path = 'CONFIG FILE PATH'
+    config.read(path)
     password = config['mysql']['password']
 
     if len(new_name) > 100:
