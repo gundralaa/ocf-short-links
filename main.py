@@ -19,7 +19,7 @@ def add_url():
     original_url = request.form['urlInput']
     new_name = request.form['nameInput']
     config = configparser.ConfigParser()
-    path = 'CONFIG FILE PATH'
+    path = '../pass/irc-bot.conf'
     config.read(path)
     password = config['mysql']['password']
 
