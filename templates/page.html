@@ -40,16 +40,16 @@
       <!-- Search for Short Url -->
       
       <!-- Search form -->
-      <form action="{{ url_for('search_url') }}" class=" py-4 form-inline">
+      <form action="{{ url_for('search_url') }}" class=" py-4 form-inline" method="post">
           <input type="text submit" class="form-control" name="searchInput" placeholder="Search">
       </form>
       <ul class="list-group">
           {% for result in search_results %}
             <li class="list-group-item flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{ result['name'] }}</h5>
-                    <button type="action" class="btn btn-primary">Delete</button>
-                </div>
+		    <form action="{{ '/delete/' + result['name'] }}" method="post" class="d-flex w-100 justify-content-between">
+                	<h5 class="mb-1" name="link_alias">{{ result['name'] }}</h5>
+			<button type="submit" class="btn btn-primary">Delete</button>
+                </form>
                 <p class="mb-1">{{ result['url'] }}</p>
             </li>
           {% endfor %}
