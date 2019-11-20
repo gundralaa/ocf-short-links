@@ -7,28 +7,54 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <style>
+      .container {
+        max-width: 960px;
+      }
+    </style>
     <title>ShortUrls</title>
   </head>
   <body>
-    <h1>Short URL Form</h1>
-
-    <form action="{{ url_for('add_url') }}" method="post">
-      <div class="form-group">
-        <label for="originalUrl">Original URL</label>
-        <input type="url" class="form-control" name="urlInput" placeholder="URL">
-        <small id="urlHelp" class="form-text text-muted">Paste the desired redirect URL</small>
+    <div class="container">
+      
+      <div class="py-4 text-center">
+        <h1>Short URL Form</h1>
       </div>
-      <div class="form-group">
-        <label for="newName">New Name</label>
-        <input type="text" class="form-control" name="nameInput" placeholder="New Name">
-        <small id="redirectHelp" class="form-text text-muted">Enter the new name served at https://www.ocf.berkeley.edu/s/name</small>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      {% if success %}
-        <small id="message" class="form-text text-muted">{{ success }}</small>
-      {% endif %}
-    </form>
+      <!-- Add Short Url Link-->
+      <form action="{{ url_for('add_url') }}" method="post">
+        <div class="form-group">
+          <label for="originalUrl"><strong>Original URL</strong></label>
+          <input type="url" class="form-control" name="urlInput" placeholder="URL">
+          <small id="urlHelp" class="form-text text-muted">Paste the desired redirect URL</small>
+        </div>
+        <div class="form-group">
+          <label for="newName"><strong>New Name</strong></label>
+          <input type="text" class="form-control" name="nameInput" placeholder="New Name">
+          <small id="redirectHelp" class="form-text text-muted">Enter the new name served at https://www.ocf.berkeley.edu/s/name</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        {% if success %}
+          <small id="message" class="form-text text-muted">{{ success }}</small>
+        {% endif %}
+      </form>
+      <!-- Search for Short Url -->
+      
+      <!-- Search form -->
+      <form action="{{ url_for('search_url') }}" class=" py-4 form-inline">
+          <input type="text submit" class="form-control" name="searchInput" placeholder="Search">
+      </form>
+      <ul class="list-group">
+          {% for result in search_results %}
+            <li class="list-group-item flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ result['name'] }}</h5>
+                    <button type="action" class="btn btn-primary">Delete</button>
+                </div>
+                <p class="mb-1">{{ result['url'] }}</p>
+            </li>
+          {% endfor %}
+      </ul>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
