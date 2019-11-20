@@ -18,21 +18,22 @@ def render_page():
 def add_url():
     original_url = request.form['urlInput']
     new_name = request.form['nameInput']
+    
     config = configparser.ConfigParser()
-    path = '../pass.conf'
+    path = '../pass/irc-bot.conf'
     config.read(path)
     password = config['mysql']['password']
 
     if len(new_name) > 100:
         return render_template('page.html', success='New name too long')
 
-    #with shorturl_db(user='ocfircbot', password=password) as ctx:
-        #try:
-            #add_shorturl(ctx, new_name, original_url)
-        #except:
-            #return render_template('page.html', success='Error')
-        #else:
-            #return render_template('page.html', success='Added')
+    with shorturl_db(user='ocfircbot', password=password) as ctx:
+        try:
+            add_shorturl(ctx, new_name, original_url)
+        except:
+            return render_template('page.html', success='Error')
+        else:
+            return render_template('page.html', success='Added')
 
     return render_template('page.html', success='Error', search_results=[])
 
