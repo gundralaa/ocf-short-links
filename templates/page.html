@@ -22,27 +22,31 @@
       </div>
       <!-- Add Short Url Link-->
       <form action="{{ url_for('add_url') }}" method="post">
-        <div class="form-group">
+        
+	<div class="form-group">
           <label for="originalUrl"><strong>Original URL</strong></label>
           <input type="url" class="form-control" name="urlInput" placeholder="URL">
           <small id="urlHelp" class="form-text text-muted">Paste the desired redirect URL</small>
         </div>
-        <div class="form-group">
+        
+	<div class="form-group">
           <label for="newName"><strong>New Name</strong></label>
           <input type="text" class="form-control" name="nameInput" placeholder="New Name">
           <small id="redirectHelp" class="form-text text-muted">Enter the new name served at https://www.ocf.berkeley.edu/s/name</small>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        
+	<button type="submit" class="btn btn-primary">Submit</button>
         {% if success %}
           <small id="message" class="form-text text-muted">{{ success }}</small>
         {% endif %}
+      
       </form>
-      <!-- Search for Short Url -->
       
       <!-- Search form -->
       <form action="{{ url_for('search_url') }}" class=" py-4 form-inline" method="post">
           <input type="text submit" class="form-control" name="searchInput" placeholder="Search">
       </form>
+      
       <ul class="list-group">
           {% for result in search_results %}
             <li class="list-group-item flex-column align-items-start">
